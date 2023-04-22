@@ -1,8 +1,84 @@
+* {
+  font-family: 'Arial', sans-serif;
+  font-weight: 400;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 h1 {
   text-align: center;
+  font-size: 38px;
+  color: rgba(102, 119, 61, 0.8);
+  margin: 10px 0 10px 0;
 }
-.keyborad-wrpapper {
+
+.keyboard-wrpapper {
+  width: 716px;
+
   margin: 10px auto 0 auto;
   display: flex;
   flex-direction: column;
+
+  &__textarea {
+    display: block;
+    height: 220px;
+    font-size: 18px;
+    padding: 10px;
+  }
 }
+
+.keyboard {
+  margin-top: 10px;
+  width: 716px;
+  height: 245px;
+  background-color: rgba(90, 90, 90, 0.8);
+  border: 3px solid black;
+  border-radius: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 6px;
+  padding-left: 6px;
+}
+
+.btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: rgba(44, 44, 44, 0.8);
+  text-transform: capitalize;
+  margin-right: 6px;
+  margin-bottom: 6px;
+  color: azure;
+  text-align: center;
+  font-size: 16px;
+  line-height: 42px;
+  cursor: pointer;
+  transition: .2s all;
+
+  &:nth-of-type(14) {
+    width: 100px;
+    background-color: rgba(7, 7, 7, 0.8);
+  }
+
+  &:hover {
+    background-color: rgb(77, 107, 0);
+    transition: .2s all;
+  }
+}
+
+// .btn.longBtn {
+//   width: 100px;
+//   background-color: rgba(7, 7, 7, 0.8);
+// }
+
+// .btn.tab {
+//   width: 50px;
+//   background-color: rgba(7, 7, 7, 0.8);
+// }
+// .btn.del {
+//   width: 44px;
+//   background-color: rgba(7, 7, 7, 0.8);
+// }
