@@ -6,6 +6,9 @@
   padding: 0;
 }
 
+$btn_black : rgba(7, 7, 7, 1);
+$btn_grey : rgba(44, 44, 44, 0.8);
+
 h1 {
   text-align: center;
   font-size: 38px;
@@ -15,7 +18,6 @@ h1 {
 
 .keyboard-wrpapper {
   width: 716px;
-
   margin: 10px auto 0 auto;
   display: flex;
   flex-direction: column;
@@ -47,8 +49,8 @@ h1 {
   width: 40px;
   height: 40px;
   border-radius: 5px;
-  background-color: rgba(44, 44, 44, 0.8);
-  text-transform: capitalize;
+  background-color: $btn_grey;
+  //text-transform: capitalize;
   margin-right: 6px;
   margin-bottom: 6px;
   color: azure;
@@ -58,27 +60,63 @@ h1 {
   cursor: pointer;
   transition: .2s all;
 
-  &:nth-of-type(14) {
+  &:nth-of-type(14),
+  &:nth-of-type(30),
+  &:nth-of-type(43) {
     width: 100px;
-    background-color: rgba(7, 7, 7, 0.8);
+    background-color: $btn_black;
+  }
+
+  &:nth-of-type(29),
+  &:nth-of-type(56),
+  &:nth-of-type(57),
+  &:nth-of-type(58),
+  &:nth-of-type(60),
+  &:nth-of-type(61),
+  &:nth-of-type(62),
+  &:nth-of-type(63),
+  &:nth-of-type(64) {
+    background-color: $btn_black;
+  }
+
+  &:nth-of-type(15) {
+    width: 54px;
+    background-color: $btn_black;
+  }
+
+  &:nth-of-type(42),
+  &:nth-of-type(55) {
+    width: 86px;
+    background-color: $btn_black;
+  }
+
+  &:nth-of-type(59) {
+    width: 330px;
+
   }
 
   &:hover {
-    background-color: rgb(77, 107, 0);
+    background-color: rgb(124, 143, 76);
     transition: .2s all;
+  }
+
+  &:active {
+    background-color: rgb(164, 228, 2);
+    transition: .2s all;
+    border-radius: 20px;
+    border: none;
+  }
+
+  &.caps_active {
+    transition: .2s all;
+    border: 2px solid rgb(164, 228, 2);
   }
 }
 
-// .btn.longBtn {
-//   width: 100px;
-//   background-color: rgba(7, 7, 7, 0.8);
-// }
+.os,
+.language {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
 
-// .btn.tab {
-//   width: 50px;
-//   background-color: rgba(7, 7, 7, 0.8);
-// }
-// .btn.del {
-//   width: 44px;
-//   background-color: rgba(7, 7, 7, 0.8);
-// }
+}
