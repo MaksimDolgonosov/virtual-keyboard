@@ -30,42 +30,69 @@ window.addEventListener('DOMContentLoaded', () => {
   language.textContent = 'Для переключения языка нажмите левые Ctrl + Alt';
   keyboardWrpapper.append(language);
   let capsLock = false;
-  const enKeyboard = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'Delete', 'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'Enter', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'ArrowUp', 'Shift', 'Control', 'Meta', 'Alt', ' ', 'Alt', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Control'];
+  const enKeyboardLower = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'Delete', 'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'Enter', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'ArrowUp', 'Shift', 'Control', 'Meta', 'Alt', ' ', 'Alt', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Control'];
+  const enKeyboardUpper = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\', 'Delete', 'CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', "'", 'Enter', 'Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'ArrowUp', 'Shift', 'Control', 'Meta', 'Alt', ' ', 'Alt', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Control'];
 
-  function initKeyBoard(caps) {
-    document.querySelector('.keyboard').innerHTML = '';
-    enKeyboard.forEach((btn) => {
-      const button = document.createElement('button');
-      button.classList.add('btn');
-      if (btn === 'Delete') {
-        button.textContent = 'Del';
-      } else if (btn === 'Control') {
-        button.textContent = 'Ctrl';
-      } else if (btn === 'Meta') {
-        button.textContent = 'Win';
-      } else if (btn === 'ArrowLeft') {
-        button.textContent = '◄';
-      } else if (btn === 'ArrowRight') {
-        button.textContent = '►';
-      } else if (btn === 'ArrowDown') {
-        button.textContent = '▼';
-      } else if (btn === 'ArrowUp') {
-        button.textContent = '▲';
-      } else if (btn === 'CapsLock') {
-        button.classList.add('caps');
-        button.textContent = `${btn}`;
-      } else {
-        console.log(caps, btn[0].toUpperCase());
-        if (caps) {
-          button.textContent = `${btn[0].toUpperCase()}`;
-        } else {
-          button.textContent = `${btn}`;
-        }
+  for (let i = 0; i < enKeyboardLower.length; i += 1) {
+    const button = document.createElement('button');
+    button.classList.add('btn');
+    if (enKeyboardLower[i] === 'Delete') {
+      button.textContent = 'Del';
+    } else if (enKeyboardLower[i] === 'Control') {
+      button.textContent = 'Ctrl';
+    } else if (enKeyboardLower[i] === 'Meta') {
+      button.textContent = 'Win';
+    } else if (enKeyboardLower[i] === 'ArrowLeft') {
+      button.textContent = '◄';
+    } else if (enKeyboardLower[i] === 'ArrowRight') {
+      button.textContent = '►';
+    } else if (enKeyboardLower[i] === 'ArrowDown') {
+      button.textContent = '▼';
+    } else if (enKeyboardLower[i] === 'ArrowUp') {
+      button.textContent = '▲';
+    } else if (enKeyboardLower[i] === 'CapsLock') {
+      button.classList.add('caps');
+      button.textContent = `${enKeyboardLower[i]}`;
+    } else {
+      for (let k = 0; k < 4; k += 1) {
+        const span = document.createElement('span');
+        span.textContent = `${enKeyboardLower[i]}`;
+        button.append(span);
       }
-      keyboard.append(button);
-    });
+
+     // button.textContent = `${enKeyboardLower[i]}`;
+    }
+    keyboard.append(button);
   }
-  initKeyBoard(capsLock);
+
+  // function initKeyBoard() {
+  //   enKeyboardLower.forEach((btn) => {
+  //     const button = document.createElement('button');
+  //     button.classList.add('btn');
+  //     if (btn === 'Delete') {
+  //       button.textContent = 'Del';
+  //     } else if (btn === 'Control') {
+  //       button.textContent = 'Ctrl';
+  //     } else if (btn === 'Meta') {
+  //       button.textContent = 'Win';
+  //     } else if (btn === 'ArrowLeft') {
+  //       button.textContent = '◄';
+  //     } else if (btn === 'ArrowRight') {
+  //       button.textContent = '►';
+  //     } else if (btn === 'ArrowDown') {
+  //       button.textContent = '▼';
+  //     } else if (btn === 'ArrowUp') {
+  //       button.textContent = '▲';
+  //     } else if (btn === 'CapsLock') {
+  //       button.classList.add('caps');
+  //       button.textContent = `${btn}`;
+  //     } else {
+  //       button.textContent = `${btn}`;
+  //     }
+  //     keyboard.append(button);
+  //   });
+  // }
+  // initKeyBoard(capsLock);
 
   // document.onkeydown = function codesOfBtns(event) {
   //   event.preventDefault();
