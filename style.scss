@@ -111,6 +111,7 @@ h1 {
     transition: .2s all;
     border: 2px solid rgb(164, 228, 2);
   }
+
 }
 
 .os,
@@ -119,4 +120,8 @@ h1 {
   text-align: center;
   margin-top: 20px;
 
+}
+
+.hidden {
+  display: none;
 }

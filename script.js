@@ -6,7 +6,7 @@ window.addEventListener('DOMContentLoaded', () => {
   h1.textContent = 'RSS Virtual Keyboard';
   body.append(h1);
   body.append(keyboardWrpapper);
-  const textarea = document.createElement('textarea');
+  let textarea = document.createElement('textarea');
   textarea.setAttribute('rows', '5');
   textarea.setAttribute('cols', '50');
   textarea.classList.add('keyboard-wrpapper__textarea');
@@ -14,15 +14,15 @@ window.addEventListener('DOMContentLoaded', () => {
   const keyboard = document.createElement('div');
   keyboard.classList.add('keyboard');
   keyboardWrpapper.append(keyboard);
-  let detectedOS;
-  if (navigator.userAgent.indexOf('Win') !== -1) {
-    detectedOS = 'Windows';
-  } else {
-    detectedOS = 'MacOS';
-  }
+  // let detectedOS;
+  // if (navigator.userAgent.indexOf('Win') !== -1) {
+  //   detectedOS = 'Windows';
+  // } else {
+  //   detectedOS = 'MacOS';
+  // }
   const os = document.createElement('div');
   os.classList.add('os');
-  os.textContent = `Клавиатура создана для операционной системы ${detectedOS}`;
+  os.textContent = 'Клавиатура создана в операционной системе Windows';
   keyboardWrpapper.append(os);
 
   const language = document.createElement('div');
@@ -32,6 +32,9 @@ window.addEventListener('DOMContentLoaded', () => {
   let capsLock = false;
   const enKeyboardLower = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'Delete', 'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'Enter', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'ArrowUp', 'Shift', 'Control', 'Meta', 'Alt', ' ', 'Alt', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Control'];
   const enKeyboardUpper = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\', 'Delete', 'CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', "'", 'Enter', 'Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'ArrowUp', 'Shift', 'Control', 'Meta', 'Alt', ' ', 'Alt', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Control'];
+
+  const ruKeyboardLower = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Delete', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '/', 'ArrowUp', 'Shift', 'Control', 'Meta', 'Alt', ' ', 'Alt', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Control'];
+  const ruKeyboardUpper = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', '\\', 'Delete', 'CapsLock', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', 'Enter', 'Shift', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', '/', 'ArrowUp', 'Shift', 'Control', 'Meta', 'Alt', ' ', 'Alt', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Control'];
 
   for (let i = 0; i < enKeyboardLower.length; i += 1) {
     const button = document.createElement('button');
@@ -54,13 +57,25 @@ window.addEventListener('DOMContentLoaded', () => {
       button.classList.add('caps');
       button.textContent = `${enKeyboardLower[i]}`;
     } else {
-      for (let k = 0; k < 4; k += 1) {
-        const span = document.createElement('span');
-        span.textContent = `${enKeyboardLower[i]}`;
-        button.append(span);
-      }
+      const spanEnLower = document.createElement('div');
+      spanEnLower.textContent = `${enKeyboardLower[i]}`;
+      spanEnLower.classList.add('spanEnLower');
+      button.append(spanEnLower);
+      const spanEnUpper = document.createElement('div');
+      spanEnUpper.textContent = `${enKeyboardUpper[i]}`;
+      spanEnUpper.classList.add('spanEnUpper', 'hidden');
+      button.append(spanEnUpper);
 
-     // button.textContent = `${enKeyboardLower[i]}`;
+      const spanRuLower = document.createElement('div');
+      spanRuLower.textContent = `${ruKeyboardLower[i]}`;
+      spanRuLower.classList.add('spanRuLower', 'hidden');
+      button.append(spanRuLower);
+      const spanRuUpper = document.createElement('div');
+      spanRuUpper.textContent = `${enKeyboardUpper[i]}`;
+      spanRuUpper.classList.add('spanRuUpper', 'hidden');
+      button.append(spanRuUpper);
+
+      // button.textContent = `${enKeyboardLower[i]}`;
     }
     keyboard.append(button);
   }
@@ -94,21 +109,55 @@ window.addEventListener('DOMContentLoaded', () => {
   // }
   // initKeyBoard(capsLock);
 
-  // document.onkeydown = function codesOfBtns(event) {
-  //   event.preventDefault();
+  document.onkeydown = function codesOfBtns(event) {
+    event.preventDefault();
 
-  //   console.log(event.key);
-  //   // textarea.value += event.key;
-  // };
+    console.log(event.key);
+    console.log(capsLock);
+    //textarea.value += event.key;
+  };
+
+  function capsUpper() {
+    document.querySelectorAll('.spanEnLower').forEach((item) => {
+      item.classList.add('hidden');
+    });
+    document.querySelectorAll('.spanEnUpper').forEach((item) => {
+      item.classList.remove('hidden');
+    });
+  }
+  function capsLower() {
+    document.querySelectorAll('.spanEnUpper').forEach((item) => {
+      item.classList.add('hidden');
+    });
+    document.querySelectorAll('.spanEnLower').forEach((item) => {
+      item.classList.remove('hidden');
+    });
+  }
+
   keyboard.addEventListener('click', (e) => {
     if (e.target.textContent === 'CapsLock' && e.target.classList.contains('caps_active')) {
       e.target.classList.remove('caps_active');
       capsLock = false;
-      initKeyBoard(capsLock);
+      capsLower();
     } else if (e.target.textContent === 'CapsLock' && !e.target.classList.contains('caps_active')) {
       e.target.classList.add('caps_active');
       capsLock = true;
-      initKeyBoard(capsLock);
+      capsUpper();
+    } else {
+      if (e.target.closest('.btn')) {
+        if (e.target.textContent === 'Tab') {
+          textarea.textContent += '    ';
+        } else if (e.target.textContent === 'Ctrl' || e.target.textContent === 'Alt' || e.target.textContent === 'Win' || e.target.textContent === 'Shift') {
+          textarea.textContent += '';
+        } else if (e.target.textContent === 'Enter') {
+          textarea.textContent += '\n';
+        } else if (e.target.textContent === 'Backspace') {
+          textarea.textContent += '';
+        } else {
+          textarea.textContent += e.target.textContent;
+        }
+      }
+      console.log(e.target.textContent);
     }
   });
 });
