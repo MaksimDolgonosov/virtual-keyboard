@@ -29,6 +29,7 @@ window.addEventListener('DOMContentLoaded', () => {
   language.classList.add('language');
   language.textContent = 'Для переключения языка нажмите левые Ctrl + Alt';
   keyboardWrpapper.append(language);
+  let currentLang = 'en';
   let capsLock = false;
   const enKeyboardLower = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'Delete', 'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'Enter', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'ArrowUp', 'Shift', 'Control', 'Meta', 'Alt', ' ', 'Alt', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Control'];
   const enKeyboardUpper = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\', 'Delete', 'CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', "'", 'Enter', 'Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'ArrowUp', 'Shift', 'Control', 'Meta', 'Alt', ' ', 'Alt', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Control'];
@@ -59,20 +60,20 @@ window.addEventListener('DOMContentLoaded', () => {
     } else {
       const spanEnLower = document.createElement('div');
       spanEnLower.textContent = `${enKeyboardLower[i]}`;
-      spanEnLower.classList.add('spanEnLower');
+      spanEnLower.classList.add('en', 'spanEnLower');
       button.append(spanEnLower);
       const spanEnUpper = document.createElement('div');
       spanEnUpper.textContent = `${enKeyboardUpper[i]}`;
-      spanEnUpper.classList.add('spanEnUpper', 'hidden');
+      spanEnUpper.classList.add('spanEnUpper', 'en', 'hidden');
       button.append(spanEnUpper);
 
       const spanRuLower = document.createElement('div');
       spanRuLower.textContent = `${ruKeyboardLower[i]}`;
-      spanRuLower.classList.add('spanRuLower', 'hidden');
+      spanRuLower.classList.add('spanRuLower', 'ru', 'hidden');
       button.append(spanRuLower);
       const spanRuUpper = document.createElement('div');
-      spanRuUpper.textContent = `${enKeyboardUpper[i]}`;
-      spanRuUpper.classList.add('spanRuUpper', 'hidden');
+      spanRuUpper.textContent = `${ruKeyboardUpper[i]}`;
+      spanRuUpper.classList.add('spanRuUpper', 'ru', 'hidden');
       button.append(spanRuUpper);
 
       // button.textContent = `${enKeyboardLower[i]}`;
@@ -111,27 +112,86 @@ window.addEventListener('DOMContentLoaded', () => {
 
   document.onkeydown = function codesOfBtns(event) {
     event.preventDefault();
-
-    console.log(event.key);
-    console.log(capsLock);
+    if (event.key === 'Control') {
+      document.onkeydown = function alt(e) {
+        if (e.key === 'Alt') {
+          changeLanguage();
+        }
+      }
+    } 
+    console.log(event);
+    // console.log(capsLock);
     //textarea.value += event.key;
   };
+  
+  function changeLanguage() {
+    if (currentLang == 'en') {
+      currentLang = 'ru';
+      document.querySelectorAll('.en').forEach(item => {
+        item.classList.add("hidden");
+      })
+      if (capsLock) {
+        document.querySelectorAll('.spanRuUpper').forEach(item => {
+          item.classList.remove("hidden");
+        })
+      } else {
+        document.querySelectorAll('.spanRuLower').forEach(item => {
+          item.classList.remove("hidden");
+        })
+      }
+    } else {
+      currentLang = 'en';
+      document.querySelectorAll('.ru').forEach(item => {
+        item.classList.add("hidden");
+      })
+      if (capsLock) {
+        document.querySelectorAll('.spanEnUpper').forEach(item => {
+          item.classList.remove("hidden");
+        })
+      } else {
+        document.querySelectorAll('.spanEnLower').forEach(item => {
+          item.classList.remove("hidden");
+        })
+      }
+    }
+  }
 
   function capsUpper() {
-    document.querySelectorAll('.spanEnLower').forEach((item) => {
-      item.classList.add('hidden');
-    });
-    document.querySelectorAll('.spanEnUpper').forEach((item) => {
-      item.classList.remove('hidden');
-    });
+    if (currentLang == 'en') {
+      document.querySelectorAll('.spanEnLower').forEach((item) => {
+        item.classList.add('hidden');
+      });
+      document.querySelectorAll('.spanEnUpper').forEach((item) => {
+        item.classList.remove('hidden');
+      });
+    } else {
+      document.querySelectorAll('.spanRuLower').forEach((item) => {
+        item.classList.add('hidden');
+      });
+      document.querySelectorAll('.spanRuUpper').forEach((item) => {
+        item.classList.remove('hidden');
+      });
+    }
+
   }
+
+
   function capsLower() {
-    document.querySelectorAll('.spanEnUpper').forEach((item) => {
-      item.classList.add('hidden');
-    });
-    document.querySelectorAll('.spanEnLower').forEach((item) => {
-      item.classList.remove('hidden');
-    });
+    if (currentLang == 'en') {
+      document.querySelectorAll('.spanEnUpper').forEach((item) => {
+        item.classList.add('hidden');
+      });
+      document.querySelectorAll('.spanEnLower').forEach((item) => {
+        item.classList.remove('hidden');
+      });
+    } else {
+      document.querySelectorAll('.spanRuUpper').forEach((item) => {
+        item.classList.add('hidden');
+      });
+      document.querySelectorAll('.spanRuLower').forEach((item) => {
+        item.classList.remove('hidden');
+      });
+    }
   }
 
   keyboard.addEventListener('click', (e) => {
