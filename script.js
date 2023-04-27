@@ -110,20 +110,21 @@ window.addEventListener('DOMContentLoaded', () => {
   // }
   // initKeyBoard(capsLock);
 
-  document.onkeydown = function codesOfBtns(event) {
+  document.onkeydown = function (event) {
     event.preventDefault();
-    if (event.key === 'Control') {
-      document.onkeydown = function alt(e) {
-        if (e.key === 'Alt') {
+    if (event.code === 'ControlLeft') {
+      document.onkeyup = function (e) {
+        if (e.code === 'AltLeft') {
           changeLanguage();
         }
       }
-    } 
+    }
     console.log(event);
+
     // console.log(capsLock);
     //textarea.value += event.key;
   };
-  
+
   function changeLanguage() {
     if (currentLang == 'en') {
       currentLang = 'ru';
@@ -193,8 +194,18 @@ window.addEventListener('DOMContentLoaded', () => {
       });
     }
   }
+  function getPositionText(area) {
+    //area.focus();
+    //return area.selectionStart;
+    console.log(document.selection);
+    if (area.selectionStart) {
+      return area.selectionStart;
+    }
+  }
 
   keyboard.addEventListener('click', (e) => {
+    //textarea.focus();
+    // textarea.setSelectionRange(2,5);
     if (e.target.textContent === 'CapsLock' && e.target.classList.contains('caps_active')) {
       e.target.classList.remove('caps_active');
       capsLock = false;
@@ -212,12 +223,29 @@ window.addEventListener('DOMContentLoaded', () => {
         } else if (e.target.textContent === 'Enter') {
           textarea.textContent += '\n';
         } else if (e.target.textContent === 'Backspace') {
-          textarea.textContent += '';
+          let position = getPositionText(textarea);
+          console.log(position);
+          if (!position) {
+            textarea.textContent = textarea.textContent.slice(0, -1);
+          } else {
+            textarea.textContent = textarea.textContent.slice(0, position - 1) + textarea.textContent.slice(position);
+            console.log(textarea)
+            // const range = document.createRange();
+            // range.setStart(textarea.childNodes[0], position);
+            textarea.focus();
+            textarea.setSelectionRange(position-1, position-1);
+          }
+          //textarea.textContent = textarea.textContent.slice(0, position - 1) + textarea.textContent.slice(position);
+          // console.log(textarea.focus());
+
+        } else if (e.target.textContent === '    ') {
+          textarea.textContent += ' ';
         } else {
+          console.log(e.target);
           textarea.textContent += e.target.textContent;
         }
       }
-      console.log(e.target.textContent);
+      //console.log(e.target.textContent);
     }
   });
 });
