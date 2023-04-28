@@ -69,6 +69,7 @@ h1 {
   }
 
   &:nth-of-type(29),
+  &:nth-of-type(54),
   &:nth-of-type(56),
   &:nth-of-type(57),
   &:nth-of-type(58),
@@ -102,6 +103,12 @@ h1 {
   }
 
   &:active {
+    background-color: rgb(164, 228, 2);
+    transition: .2s all;
+    border-radius: 20px;
+    border: none;
+  }
+  &.active_btn {
     background-color: rgb(164, 228, 2);
     transition: .2s all;
     border-radius: 20px;
