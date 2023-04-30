@@ -6,7 +6,7 @@ window.addEventListener('DOMContentLoaded', () => {
   h1.textContent = 'RSS Virtual Keyboard';
   body.append(h1);
   body.append(keyboardWrpapper);
-  let textarea = document.createElement('textarea');
+  const textarea = document.createElement('textarea');
   textarea.setAttribute('rows', '5');
   textarea.setAttribute('cols', '50');
   textarea.classList.add('keyboard-wrpapper__textarea');
@@ -99,8 +99,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     keyboard.append(button);
   }
-
-
+  let shiftFlag = true;
   document.onkeydown = function (event) {
     event.preventDefault();
     if (event.code === 'ControlLeft') {
@@ -108,94 +107,92 @@ window.addEventListener('DOMContentLoaded', () => {
         if (e.code === 'AltLeft') {
           changeLanguage();
         }
-      }
+      };
     }
-    if (event.code === 'ShiftLeft') {
-      if (capsLock = true) {
+
+    if (event.code === 'ShiftLeft' && shiftFlag) {
+      shiftFlag = false;
+      if (document.querySelector('.caps').classList.contains('caps_active')) {
         capsLower();
       } else {
         capsUpper();
       }
       document.onkeyup = function (e) {
         if (e.code === 'ShiftLeft') {
-          if (capsLock = true) {
+          shiftFlag = true;
+          if (document.querySelector('.caps').classList.contains('caps_active')) {
             capsUpper();
           } else {
             capsLower();
           }
         }
-      }
+      };
     }
     // btnLoc.push(event.location)
     // console.log(btnLoc);
-    document.querySelectorAll('.btn').forEach(btn => {
+    document.querySelectorAll('.btn').forEach((btn) => {
       if (event.keyCode === +btn.getAttribute('data-key') && event.location === +btn.getAttribute('data-loc')) {
         btn.classList.add('active_btn');
         // console.log(btn.children.length>0);
         if (btn.children.length > 0) {
-          btn.querySelectorAll('div').forEach(div => {
+          btn.querySelectorAll('div').forEach((div) => {
             if (!div.classList.contains('hidden')) {
               div.click();
             }
-          })
+          });
         } else {
           btn.click();
         }
-
       }
-
-    })
-
-
+    });
     document.addEventListener('keyup', () => {
-      document.querySelectorAll('.btn').forEach(btn => {
+      document.querySelectorAll('.btn').forEach((btn) => {
         btn.classList.remove('active_btn');
-      })
-    })
-    //console.log(event);
+      });
+    });
+    // console.log(event);
 
     // console.log(event.code.replace('Key', '').toLowerCase());
     // console.log(capsLock);
-    //textarea.value += event.key;
+    // textarea.value += event.key;
   };
 
-
   function changeLanguage() {
-    if (currentLang == 'en') {
+    if (currentLang === 'en') {
       currentLang = 'ru';
       localStorage.setItem('language', 'ru');
-      document.querySelectorAll('.en').forEach(item => {
-        item.classList.add("hidden");
-      })
+      document.querySelectorAll('.en').forEach((item) => {
+        item.classList.add('hidden');
+      });
       if (capsLock) {
-        document.querySelectorAll('.spanRuUpper').forEach(item => {
-          item.classList.remove("hidden");
-        })
+        document.querySelectorAll('.spanRuUpper').forEach((item) => {
+          item.classList.remove('hidden');
+        });
       } else {
-        document.querySelectorAll('.spanRuLower').forEach(item => {
-          item.classList.remove("hidden");
-        })
+        document.querySelectorAll('.spanRuLower').forEach((item) => {
+          item.classList.remove('hidden');
+        });
       }
     } else {
       currentLang = 'en';
       localStorage.setItem('language', 'en');
-      document.querySelectorAll('.ru').forEach(item => {
-        item.classList.add("hidden");
-      })
+      document.querySelectorAll('.ru').forEach((item) => {
+        item.classList.add('hidden');
+      });
       if (capsLock) {
-        document.querySelectorAll('.spanEnUpper').forEach(item => {
-          item.classList.remove("hidden");
-        })
+        document.querySelectorAll('.spanEnUpper').forEach((item) => {
+          item.classList.remove('hidden');
+        });
       } else {
-        document.querySelectorAll('.spanEnLower').forEach(item => {
-          item.classList.remove("hidden");
-        })
+        document.querySelectorAll('.spanEnLower').forEach((item) => {
+          item.classList.remove('hidden');
+        });
       }
     }
   }
 
   function capsUpper() {
-    if (currentLang == 'en') {
+    if (currentLang === 'en') {
       document.querySelectorAll('.spanEnLower').forEach((item) => {
         item.classList.add('hidden');
       });
@@ -213,9 +210,8 @@ window.addEventListener('DOMContentLoaded', () => {
     capsLock = true;
   }
 
-
   function capsLower() {
-    if (currentLang == 'en') {
+    if (currentLang === 'en') {
       document.querySelectorAll('.spanEnUpper').forEach((item) => {
         item.classList.add('hidden');
       });
