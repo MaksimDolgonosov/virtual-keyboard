@@ -28,7 +28,10 @@ window.addEventListener('DOMContentLoaded', () => {
   let currentLang = localStorage.getItem('language') || 'en';
 
   let capsLock = false;
+  // eslint-disable-next-line max-len
   const btnCode = [192, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 189, 187, 8, 9, 81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 219, 221, 220, 46, 20, 65, 83, 68, 70, 71, 72, 74, 75, 76, 186, 222, 13, 16, 90, 88, 67, 86, 66, 78, 77, 188, 190, 191, 38, 16, 17, 91, 18, 32, 18, 37, 40, 39, 17];
+
+  // eslint-disable-next-line max-len
   const btnLoc = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 0, 2, 0, 0, 0, 2];
 
   const enKeyboardLower = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'Delete', 'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'Enter', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'ArrowUp', 'Shift', 'Control', 'Meta', 'Alt', ' ', 'Alt', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Control'];
@@ -60,6 +63,7 @@ window.addEventListener('DOMContentLoaded', () => {
       button.classList.add('caps');
       button.textContent = `${enKeyboardLower[i]}`;
     } else {
+      // eslint-disable-next-line no-lonely-if
       if (currentLang === 'en') {
         const spanEnLower = document.createElement('div');
         spanEnLower.textContent = `${enKeyboardLower[i]}`;
@@ -99,63 +103,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     keyboard.append(button);
   }
-  let shiftFlag = true;
-  document.onkeydown = function (event) {
-    event.preventDefault();
-    if (event.code === 'ControlLeft') {
-      document.onkeyup = function (e) {
-        if (e.code === 'AltLeft') {
-          changeLanguage();
-        }
-      };
-    }
-
-    if (event.code === 'ShiftLeft' && shiftFlag) {
-      shiftFlag = false;
-      if (document.querySelector('.caps').classList.contains('caps_active')) {
-        capsLower();
-      } else {
-        capsUpper();
-      }
-      document.onkeyup = function (e) {
-        if (e.code === 'ShiftLeft') {
-          shiftFlag = true;
-          if (document.querySelector('.caps').classList.contains('caps_active')) {
-            capsUpper();
-          } else {
-            capsLower();
-          }
-        }
-      };
-    }
-    // btnLoc.push(event.location)
-    // console.log(btnLoc);
-    document.querySelectorAll('.btn').forEach((btn) => {
-      if (event.keyCode === +btn.getAttribute('data-key') && event.location === +btn.getAttribute('data-loc')) {
-        btn.classList.add('active_btn');
-        // console.log(btn.children.length>0);
-        if (btn.children.length > 0) {
-          btn.querySelectorAll('div').forEach((div) => {
-            if (!div.classList.contains('hidden')) {
-              div.click();
-            }
-          });
-        } else {
-          btn.click();
-        }
-      }
-    });
-    document.addEventListener('keyup', () => {
-      document.querySelectorAll('.btn').forEach((btn) => {
-        btn.classList.remove('active_btn');
-      });
-    });
-    // console.log(event);
-
-    // console.log(event.code.replace('Key', '').toLowerCase());
-    // console.log(capsLock);
-    // textarea.value += event.key;
-  };
 
   function changeLanguage() {
     if (currentLang === 'en') {
@@ -228,6 +175,60 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     capsLock = false;
   }
+  let shiftFlag = true;
+  document.onkeydown = function b(event) {
+    event.preventDefault();
+    if (event.code === 'ControlLeft') {
+      document.onkeyup = function c(e) {
+        if (e.code === 'AltLeft') {
+          changeLanguage();
+        }
+      };
+    }
+
+    if (event.code === 'ShiftLeft' && shiftFlag) {
+      shiftFlag = false;
+      if (document.querySelector('.caps').classList.contains('caps_active')) {
+        capsLower();
+      } else {
+        capsUpper();
+      }
+      document.onkeyup = function a(e) {
+        if (e.code === 'ShiftLeft') {
+          shiftFlag = true;
+          if (document.querySelector('.caps').classList.contains('caps_active')) {
+            capsUpper();
+          } else {
+            capsLower();
+          }
+        }
+      };
+    }
+    // btnLoc.push(event.location)
+    // console.log(btnLoc);
+    document.querySelectorAll('.btn').forEach((btn) => {
+      if (event.keyCode === +btn.getAttribute('data-key') && event.location === +btn.getAttribute('data-loc')) {
+        btn.classList.add('active_btn');
+        // console.log(btn.children.length>0);
+        if (btn.children.length > 0) {
+          btn.querySelectorAll('div').forEach((div) => {
+            if (!div.classList.contains('hidden')) {
+              div.click();
+            }
+          });
+        } else {
+          btn.click();
+        }
+      }
+    });
+    document.addEventListener('keyup', () => {
+      document.querySelectorAll('.btn').forEach((btn) => {
+        btn.classList.remove('active_btn');
+      });
+    });
+  };
+
+  // eslint-disable-next-line consistent-return
   function getPositionText(area) {
     if (area.selectionStart) {
       return area.selectionStart;
@@ -248,6 +249,7 @@ window.addEventListener('DOMContentLoaded', () => {
       capsLock = true;
       capsUpper();
     } else {
+      // eslint-disable-next-line no-lonely-if
       if (e.target.closest('.btn')) {
         if (e.target.textContent === 'Tab') {
           textarea.textContent += '    ';
@@ -258,20 +260,21 @@ window.addEventListener('DOMContentLoaded', () => {
           textarea.textContent += '\n';
           setCursor();
         } else if (e.target.textContent === 'Backspace') {
-          let position = getPositionText(textarea);
+          const position = getPositionText(textarea);
           if (!position) {
             textarea.textContent = textarea.textContent.slice(0, -1);
           } else {
+            // eslint-disable-next-line max-len
             textarea.textContent = textarea.textContent.slice(0, position - 1) + textarea.textContent.slice(position);
             textarea.focus();
             textarea.setSelectionRange(position - 1, position - 1);
           }
         } else if (e.target.textContent === 'Del') {
-          let position = getPositionText(textarea);
+          const position = getPositionText(textarea);
+          // eslint-disable-next-line max-len
           if (position) textarea.textContent = textarea.textContent.slice(0, position) + textarea.textContent.slice(position + 1);
           textarea.focus();
           textarea.setSelectionRange(position, position);
-
         } else if (e.target.textContent === '    ') {
           textarea.textContent += ' ';
           setCursor();
