@@ -1,0 +1,135 @@
+* {
+  font-family: 'Arial', sans-serif;
+  font-weight: 400;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+$btn_black : rgba(7, 7, 7, 1);
+$btn_grey : rgba(44, 44, 44, 0.8);
+
+h1 {
+  text-align: center;
+  font-size: 38px;
+  color: rgba(102, 119, 61, 0.8);
+  margin: 10px 0 10px 0;
+}
+
+.keyboard-wrpapper {
+  width: 716px;
+  margin: 10px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+
+  &__textarea {
+    display: block;
+    height: 220px;
+    font-size: 18px;
+    padding: 10px;
+  }
+}
+
+.keyboard {
+  margin-top: 10px;
+  width: 716px;
+  height: 245px;
+  background-color: rgba(90, 90, 90, 0.8);
+  border: 3px solid black;
+  border-radius: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 6px;
+  padding-left: 6px;
+}
+
+.btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: $btn_grey;
+  //text-transform: capitalize;
+  margin-right: 6px;
+  margin-bottom: 6px;
+  color: azure;
+  text-align: center;
+  font-size: 16px;
+  line-height: 42px;
+  cursor: pointer;
+  transition: .2s all;
+  border: none;
+
+  &:nth-of-type(14),
+  &:nth-of-type(30),
+  &:nth-of-type(43) {
+    width: 100px;
+    background-color: $btn_black;
+  }
+
+  &:nth-of-type(29),
+  &:nth-of-type(54),
+  &:nth-of-type(56),
+  &:nth-of-type(57),
+  &:nth-of-type(58),
+  &:nth-of-type(60),
+  &:nth-of-type(61),
+  &:nth-of-type(62),
+  &:nth-of-type(63),
+  &:nth-of-type(64) {
+    background-color: $btn_black;
+  }
+
+  &:nth-of-type(15) {
+    width: 54px;
+    background-color: $btn_black;
+  }
+
+  &:nth-of-type(42),
+  &:nth-of-type(55) {
+    width: 86px;
+    background-color: $btn_black;
+  }
+
+  &:nth-of-type(59) {
+    width: 330px;
+
+  }
+
+  &:hover {
+    background-color: rgb(124, 143, 76);
+    transition: .2s all;
+  }
+
+  &:active {
+    background-color: rgb(164, 228, 2);
+    transition: .2s all;
+    border-radius: 20px;
+    border: none;
+  }
+  &.active_btn {
+    background-color: rgb(164, 228, 2);
+    transition: .2s all;
+    border-radius: 20px;
+    border: none;
+  }
+
+  &.caps_active {
+    transition: .2s all;
+    border: 2px solid rgb(164, 228, 2);
+  }
+
+}
+
+.os,
+.language {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
+
+}
+
+.hidden {
+  display: none;
+}
